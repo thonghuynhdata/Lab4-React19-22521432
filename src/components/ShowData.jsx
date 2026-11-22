@@ -1,0 +1,1 @@
+export default function ShowData({data}){return <section className="panel" role="status" aria-live="polite"><h3>ShowData · Valid form submitted</h3><dl className="inspector">{Object.entries(data).map(([key,val])=><div key={key} className="data-row"><dt>{key}</dt><dd>{String(val)}</dd></div>)}</dl></section>;}

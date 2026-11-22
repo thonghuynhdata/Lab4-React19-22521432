@@ -1,0 +1,2 @@
+import { NavLink, Outlet } from 'react-router';
+export default function PeopleLayout({people}) {return <div className="people-frame"><aside className="panel"><h2>Team members</h2><nav className="person-nav" aria-label="People">{people.map(p=><NavLink key={p.id} to={`/people/${p.id}`} className={({isActive})=>isActive?'active-link':'link'}>{p.name}<small>{p.role}</small></NavLink>)}</nav></aside><section className="content-area"><Outlet/></section></div>;}

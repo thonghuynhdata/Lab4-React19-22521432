@@ -1,0 +1,9 @@
+import {useState} from 'react';
+import {FormProvider,useFormContext} from '../context/FormContext.jsx';
+import InputField from './InputField.jsx';
+import ShowData from './ShowData.jsx';
+function FormUI(){const {values,errors,isValid,setTouched}=useFormContext();const [submitted,setSubmitted]=useState(null);
+ const onSubmit=(event)=>{event.preventDefault();if(!isValid){setTouched({name:true,email:true,password:true,confirmPassword:true});setSubmitted(null);return;}setSubmitted({name:values.name.trim(),email:values.email.trim(),password:'•••••••• (hidden)',confirmPassword:'•••••••• (hidden)'});};
+ return <div className="two-column"><section className="panel"><span className="eyebrow">SPRINT 2 · ZERO useEffect VALIDATION</span><h2>Context form engine</h2><p>Errors are derived synchronously from field values, not updated through effect chains.</p><form onSubmit={onSubmit} noValidate><InputField name="name" label="Full name" autoComplete="name"/><InputField name="email" label="Email" type="email" autoComplete="email"/><InputField name="password" label="Password" type="password" autoComplete="new-password"/><InputField name="confirmPassword" label="Confirm password" type="password" autoComplete="new-password"/><div className="action-row"><button type="submit">Submit valid data</button><span className={isValid?'success':'muted'} aria-live="polite">{isValid?'✓ Form valid':`${Object.keys(errors).length} field(s) need attention`}</span></div></form></section><div>{submitted?<ShowData data={submitted}/>:<div className="panel"><h3>Live inspector</h3><p>Submit a valid form to view semantic key–value data. Passwords are not displayed.</p></div>}</div></div>;
+}
+export default function SimpleForm(){return <FormProvider><FormUI/></FormProvider>;}
